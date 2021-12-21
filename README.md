@@ -1,2 +1,2 @@
-# ReactJS_styding
+# Repository for homework
 Protopopov Dmitriy
