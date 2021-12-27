@@ -1,4 +1,4 @@
-import { Fragment, Component } from 'react';
+import { Component } from 'react';
 
 const Tab1 = () => (
     <h1>I press some keys</h1>
@@ -27,12 +27,12 @@ class ConditionalClass extends Component {
     render() {
         const { activeTab } = this.state
         return (
-            <Fragment>
+            <>
                 <button data-name={1} onClick={this.handleTab}>I am</button>
                 <button data-name={2} onClick={this.handleTab}>too lazy</button>
                 <button data-name={3} onClick={this.handleTab}>for styles</button>
                 {activeTab === 1 ? <Tab1 /> : activeTab === 2 ? <Tab2 /> : <Tab3/>}
-            </Fragment>
+            </>
         );
     }
 }
