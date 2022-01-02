@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
 import Todo from "./components/Todo"
+import { nanoid } from "nanoid";
 
 class App extends Component {
     constructor(props) {
         super(props);
-        this.tasks = (this.props.tasks);
+        this.state = {
+            tasks: this.props.tasks
+        };
         this.taskList = this.tasks.map(task => (
             <Todo
                 id={task.id}
@@ -17,9 +20,17 @@ class App extends Component {
         ))
     }
 
+    componentDidMount() {
+        this.setState({
+            setTasks: this.props
+        });
+    }
+
     addTask(name) {
-        const newTask = { id: "id", name: name, completed: false };
-        setTasks([...this.tasks, newTask]);
+        const newTask = { id: "todo-" + nanoid(), name: name, completed: false };
+        this.setState({
+            setTasks: ([...this.tasks, newTask])
+        });
     }
 
     render () {

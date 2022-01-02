@@ -3,19 +3,30 @@ import React, { Component } from "react";
 class Form extends Component {
     constructor(props) {
         super(props);
-        this.name = {sampleName: ''};
-        const { sampleName } = this.name;
-        const setSampleName = sampleName => this.setName({ sampleName });
+        this.state = {
+            name: ""
+        };
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+    }
+    componentDidMount() {
+        this.setState({
+            setName: this.props.name
+        })
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.addTask(this.name);
-        this.setName("");
+        this.setState({
+            setName: ""
+        });
     }
 
     handleChange = (e) => {
-        this.setName(e.target.value);
+        this.setState({
+            setName: (e.target.value)
+        });
     }
 
     render() {
