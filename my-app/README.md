@@ -68,3 +68,15 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+name = {sampleName: ''};
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.addTask(this.name);
+        this.setName("");
+    }
+
+    handleChange = (e) => {
+        this.setName(e.target.value);
+    }
