@@ -10,45 +10,45 @@ class App extends Component {
         this.state = {
             tasks: this.props.tasks
         };
-        this.taskList = this.tasks.map(task => (
-            <Todo
-                id={task.id}
-                name={task.name}
-                completed={task.completed}
-                key={task.id}
-            />
-        ))
     }
 
     componentDidMount() {
         this.setState({
-            setTasks: this.props
+            tasks: this.props.tasks
         });
     }
 
     addTask(name) {
         const newTask = { id: "todo-" + nanoid(), name: name, completed: false };
+        this.state.tasks.push(newTask);
         this.setState({
-            setTasks: ([...this.tasks, newTask])
+            tasks: this.state.tasks
         });
     }
 
-    render () {
+    render() {
         return (
             <div className="todoapp stack-large">
-                <h1>TodoMatic</h1>
-                <Form addTask={this.addTask} />
+                <h1>ToDo App</h1>
+                <Form addTask={this.addTask.bind(this)}/>
                 <div className="filters btn-group stack-exception">
                     <FilterButton />
                     <FilterButton />
                     <FilterButton />
                 </div>
-                <h2 id="list-heading">3 tasks remaining</h2>
+                <h2 id="list-heading">{this.headingText}</h2>
                 <ul
                     className="todo-list stack-large stack-exception"
                     aria-labelledby="list-heading"
                 >
-                    {this.taskList}
+                    {this.state.tasks.reverse().map(task => (
+                        <Todo
+                            id={task.id}
+                            name={task.name}
+                            completed={task.completed}
+                            key={task.id}
+                        />
+                    ))}
                 </ul>
             </div>
         )

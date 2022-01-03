@@ -4,28 +4,21 @@ class Form extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: ""
+            name: ''
         };
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-    }
-    componentDidMount() {
-        this.setState({
-            setName: this.props.name
-        })
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        this.props.addTask(this.name);
+        this.props.addTask(this.state.name);
         this.setState({
-            setName: ""
+            name: ""
         });
     }
 
     handleChange = (e) => {
         this.setState({
-            setName: (e.target.value)
+            name: e.target.value
         });
     }
 
@@ -43,7 +36,7 @@ class Form extends Component {
                     className="input input__lg"
                     name="text"
                     autoComplete="off"
-                    value={this.name}
+                    value={this.state.name}
                     onChange={this.handleChange}
                 />
                 <button type="submit" className="btn btn__primary btn__lg">
