@@ -8,7 +8,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tasks: this.props.tasks
+        tasks: this.props.tasks
         };
     }
 
@@ -25,8 +25,32 @@ class App extends Component {
             tasks: this.state.tasks
         });
     }
+///***
+    toggleTaskCompleted(id) {
+        const updatedTasks = this.state.tasks.map(task => {
+            if (id === task.id) {
+                return {...task, completed: !task.completed}
+            }
+            return task;
+        });
+        this.state.tasks.push(updatedTasks);
+        this.setState({
+            tasks: this.state.tasks
+        });
+    }
+
+    deleteTask(id) {
+        const remainingTasks = this.state.tasks.filter(task => id !== task.id);
+        this.state.tasks.push(remainingTasks);
+        this.setState({
+            tasks: this.state.tasks
+        });
+    }
 
     render() {
+        this.tasksNoun = this.state.tasks.length !== 1 ? 'tasks' : 'task';
+        this.headingText = `${this.state.tasks.length} ${this.tasksNoun} remaining`;
+        ///***
         return (
             <div className="todoapp stack-large">
                 <h1>ToDo App</h1>
@@ -36,7 +60,9 @@ class App extends Component {
                     <FilterButton />
                     <FilterButton />
                 </div>
-                <h2 id="list-heading">{this.headingText}</h2>
+                <h2 id="list-heading">
+                    {this.headingText}
+                </h2>
                 <ul
                     className="todo-list stack-large stack-exception"
                     aria-labelledby="list-heading"
@@ -47,6 +73,8 @@ class App extends Component {
                             name={task.name}
                             completed={task.completed}
                             key={task.id}
+                            toggleTaskCompleted={this.toggleTaskCompleted.bind(this)}
+                            deleteTask={this.deleteTask.bind(this)}
                         />
                     ))}
                 </ul>
