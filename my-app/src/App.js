@@ -22,10 +22,10 @@ class App extends Component {
         const newTask = { id: "todo-" + nanoid(), name: name, completed: false };
         this.state.tasks.push(newTask);
         this.setState({
-            tasks: this.state.tasks
+            tasks: this.props.tasks
         });
     }
-///***
+
     toggleTaskCompleted(id) {
         const updatedTasks = this.state.tasks.map(task => {
             if (id === task.id) {
@@ -33,24 +33,21 @@ class App extends Component {
             }
             return task;
         });
-        this.state.tasks.push(updatedTasks);
         this.setState({
-            tasks: this.state.tasks
+            tasks: updatedTasks
         });
     }
 
     deleteTask(id) {
         const remainingTasks = this.state.tasks.filter(task => id !== task.id);
-        this.state.tasks.push(remainingTasks);
         this.setState({
-            tasks: this.state.tasks
+            tasks: remainingTasks
         });
     }
 
     render() {
         this.tasksNoun = this.state.tasks.length !== 1 ? 'tasks' : 'task';
         this.headingText = `${this.state.tasks.length} ${this.tasksNoun} remaining`;
-        ///***
         return (
             <div className="todoapp stack-large">
                 <h1>ToDo App</h1>
@@ -67,7 +64,7 @@ class App extends Component {
                     className="todo-list stack-large stack-exception"
                     aria-labelledby="list-heading"
                 >
-                    {this.state.tasks.reverse().map(task => (
+                    {this.state.tasks.map(task => (
                         <Todo
                             id={task.id}
                             name={task.name}

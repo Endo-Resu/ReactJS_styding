@@ -15,7 +15,7 @@ class Todo extends Component {
                         id={this.props.id}
                         type="checkbox"
                         defaultChecked={this.props.completed}
-                        onChange={() => this.props.toggleTaskCompleted.bind(this.props.id)}
+                        onChange={() => this.props.toggleTaskCompleted(this.props.id)}
                     />
                     <label className="todo-label" htmlFor={this.props.id}>
                         {this.props.name}
@@ -28,7 +28,7 @@ class Todo extends Component {
                     <button
                         type="button"
                         className="btn btn__danger"
-                        onClick={() => this.props.deleteTask.bind(this.props.id)}
+                        onClick={() => this.props.deleteTask(this.props.id)}
                     >
                         Delete <span className="visually-hidden">{this.props.name}</span>
                     </button>
