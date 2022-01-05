@@ -5,30 +5,40 @@ class Todo extends Component {
         super(props);
         this.state = {
             id: this.props.id,
-            isEditing: this.props.isEditing
+            isEditing: this.props.isEditing,
+            newName: '',
         }
+
+    }
+
+    newNameHandler(e) {
+        this.setState({
+            newName: e.target.value
+        })
     }
 
     render() {
         const editingTemplate = (
             <div>
-                <form className="stack-small">
+                <form className="stack-small" onSubmit={(e) => e.preventDefault()}>
                     <div className="form-group">
                         <label className="todo-label" htmlFor={this.props.id}>
                             New name for {this.props.name}
                         </label>
-                        <input id={this.props.id} className="todo-text" type="text" />
+                        <input onInput={(event) => this.newNameHandler.call(this, event)} value={this.state.newName} id={this.props.id} className="todo-text" type="text" />
                     </div>
                     <div className="btn-group">
                         <button
-                            type="button"
                             className="btn todo-cancel"
-                            onClick={() => this.props.setEditing(this.props.isEditing)}
+                            onClick={() => this.props.editTask(this.props.id, this.props.name)}
                         >
                             Cancel
                             <span className="visually-hidden">renaming {this.props.name}</span>
                         </button>
-                        <button type="submit" className="btn btn__primary todo-edit">
+                        <button
+                            onClick={() => this.props.editTask(this.props.id, this.state.newName)}
+                            className="btn btn__primary todo-edit"
+                        >
                             Save
                             <span className="visually-hidden">new name for {this.props.name}</span>
                         </button>
@@ -55,7 +65,7 @@ class Todo extends Component {
                         <button
                             type="button"
                             className="btn"
-                            onClick={() => this.props.editTask(this.props.id)}
+                            onClick={() => this.props.setEditing(true)}
                         >
                             Edit <span className="visually-hidden">{this.props.name}</span>
                         </button>
@@ -72,7 +82,7 @@ class Todo extends Component {
         );
 
         return (
-            <li className="todo">{this.isEditing ? editingTemplate : viewTemplate}</li>
+            <li className="todo">{this.props.isEditing ? editingTemplate : viewTemplate}</li>
         );
     }
 }

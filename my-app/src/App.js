@@ -16,8 +16,9 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-        tasks: this.props.tasks,
-            filter: 'All'
+            isEditing: false,
+            tasks: [],
+            filterType: 'All',
         };
     }
 
@@ -25,8 +26,19 @@ class App extends Component {
         const newTask = { id: "todo-" + nanoid(), name: name, completed: false };
         this.state.tasks.push(newTask);
         this.setState({
-            tasks: this.props.tasks
+            tasks: this.state.tasks
         });
+    }
+    setFilter(filterName) {
+        this.setState({
+            filterType: filterName,
+        })
+    }
+
+    setEditing(value) {
+        this.setState({
+            isEditing: value,
+        })
     }
 
     toggleTaskCompleted(id) {
@@ -49,16 +61,29 @@ class App extends Component {
     }
 
     editTask(id, newName) {
+        console.log(id, newName)
         const editedTaskList = this.state.tasks.map(task => {
             if (id === task.id) {
                 return {...task, name: newName}
             }
             return task;
         });
-        this.state.tasks.push(editedTaskList)
         this.setState({
-            tasks: editedTaskList
+            tasks: editedTaskList,
+            isEditing: false,
         });
+    }
+
+    tasksWasFilter() {
+        return this.state.tasks.filter(task => {
+            if (this.state.filterType === 'Completed' && task.completed) {
+                return task
+            } else if (this.state.filterType === "Active" && !task.completed) {
+                return task
+            } else if (this.state.filterType === 'All') {
+                return task
+            }
+        })
     }
 
     render() {
@@ -73,8 +98,7 @@ class App extends Component {
                         <FilterButton
                             key={name}
                             name={name}
-                            isPressed={name === this.props.filter}
-                            setFilter={this.props.setFilter}
+                            setFilter={this.setFilter.bind(this)}
                         />
                     ))}
                 </div>
@@ -85,17 +109,21 @@ class App extends Component {
                     className="todo-list stack-large stack-exception"
                     aria-labelledby="list-heading"
                 >
-                    {this.state.tasks.map(task => (
-                        <Todo
-                            id={task.id}
-                            name={task.name}
-                            completed={task.completed}
-                            key={task.id}
-                            toggleTaskCompleted={this.toggleTaskCompleted.bind(this)}
-                            deleteTask={this.deleteTask.bind(this)}
-                            editTask={this.editTask.bind(this)}
-                        />
-                    ))}
+                    {this.tasksWasFilter().map(task => {
+                        return (
+                            <Todo
+                                id={task.id}
+                                name={task.name}
+                                completed={task.completed}
+                                key={task.id}
+                                setEditing={this.setEditing.bind(this)}
+                                isEditing={this.state.isEditing}
+                                toggleTaskCompleted={this.toggleTaskCompleted.bind(this)}
+                                deleteTask={this.deleteTask.bind(this)}
+                                editTask={this.editTask.bind(this)}
+                            />
+                        )
+                    })}
                 </ul>
             </div>
         )
