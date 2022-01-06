@@ -29,7 +29,8 @@ class App extends Component {
             tasks: this.state.tasks
         });
     }
-    setFilter(filterName) {
+
+    setFilter(filterName) { 
         this.setState({
             filterType: filterName,
         })
@@ -61,7 +62,6 @@ class App extends Component {
     }
 
     editTask(id, newName) {
-        console.log(id, newName)
         const editedTaskList = this.state.tasks.map(task => {
             if (id === task.id) {
                 return {...task, name: newName}
@@ -73,9 +73,9 @@ class App extends Component {
             isEditing: false,
         });
     }
-
     tasksWasFilter() {
         return this.state.tasks.filter(task => {
+                          
             if (this.state.filterType === 'Completed' && task.completed) {
                 return task
             } else if (this.state.filterType === "Active" && !task.completed) {
@@ -110,19 +110,19 @@ class App extends Component {
                     aria-labelledby="list-heading"
                 >
                     {this.tasksWasFilter().map(task => {
-                        return (
-                            <Todo
-                                id={task.id}
-                                name={task.name}
-                                completed={task.completed}
-                                key={task.id}
-                                setEditing={this.setEditing.bind(this)}
-                                isEditing={this.state.isEditing}
-                                toggleTaskCompleted={this.toggleTaskCompleted.bind(this)}
-                                deleteTask={this.deleteTask.bind(this)}
-                                editTask={this.editTask.bind(this)}
-                            />
-                        )
+                            return (
+                                <Todo
+                                    id={task.id}
+                                    name={task.name}
+                                    completed={task.completed}
+                                    key={task.id}
+                                    setEditing={this.setEditing.bind(this)}
+                                    isEditing={this.state.isEditing}
+                                    toggleTaskCompleted={this.toggleTaskCompleted.bind(this)}
+                                    deleteTask={this.deleteTask.bind(this)}
+                                    editTask={this.editTask.bind(this)}
+                                />
+                            )
                     })}
                 </ul>
             </div>

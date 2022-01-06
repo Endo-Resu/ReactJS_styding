@@ -29,16 +29,14 @@ class Todo extends Component {
                     </div>
                     <div className="btn-group">
                         <button
+                            type="button"
                             className="btn todo-cancel"
-                            onClick={() => this.props.editTask(this.props.id, this.props.name)}
+                            onClick={() => this.props.setEditing(false)}
                         >
                             Cancel
                             <span className="visually-hidden">renaming {this.props.name}</span>
                         </button>
-                        <button
-                            onClick={() => this.props.editTask(this.props.id, this.state.newName)}
-                            className="btn btn__primary todo-edit"
-                        >
+                        <button  onClick={() => this.props.editTask(this.props.id, this.state.newName)}  className="btn btn__primary todo-edit">
                             Save
                             <span className="visually-hidden">new name for {this.props.name}</span>
                         </button>
