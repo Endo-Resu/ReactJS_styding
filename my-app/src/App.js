@@ -4,41 +4,42 @@ import FilterButton from "./components/FilterButton";
 import Todo from "./components/Todo"
 import { nanoid } from "nanoid";
 
-const FILTER_MAP = {
-    All: () => true,
-    Active: task => !task.completed,
-    Completed: task => task.completed,
-};
 
-const FILTER_NAMES = Object.keys(FILTER_MAP);
+const FILTER_NAMES = ['All', 'Active', 'Completed'];
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isEditing: false,
             tasks: [],
             filterType: 'All',
         };
     }
 
     addTask(name) {
-        const newTask = { id: "todo-" + nanoid(), name: name, completed: false };
+        const newTask = { id: "todo-" + nanoid(), name: name, completed: false, isEditing: false };
         this.state.tasks.push(newTask);
         this.setState({
             tasks: this.state.tasks
         });
     }
-
     setFilter(filterName) { 
         this.setState({
             filterType: filterName,
         })
     }
 
-    setEditing(value) {
+    setEditing(taskId, value) {
+        console.log(taskId)
+        const newTasks = this.state.tasks.map(task => {
+            if (task.id === taskId) {
+                task.isEditing = value;
+            }
+            return task;
+        })
+
         this.setState({
-            isEditing: value,
+            tasks: newTasks
         })
     }
 
@@ -62,15 +63,16 @@ class App extends Component {
     }
 
     editTask(id, newName) {
+        console.log(id, newName)
         const editedTaskList = this.state.tasks.map(task => {
             if (id === task.id) {
-                return {...task, name: newName}
+                task.name = newName;
+                task.isEditing = false;
             }
             return task;
         });
         this.setState({
             tasks: editedTaskList,
-            isEditing: false,
         });
     }
     tasksWasFilter() {
@@ -117,7 +119,7 @@ class App extends Component {
                                     completed={task.completed}
                                     key={task.id}
                                     setEditing={this.setEditing.bind(this)}
-                                    isEditing={this.state.isEditing}
+                                    isEditing={task.isEditing}
                                     toggleTaskCompleted={this.toggleTaskCompleted.bind(this)}
                                     deleteTask={this.deleteTask.bind(this)}
                                     editTask={this.editTask.bind(this)}

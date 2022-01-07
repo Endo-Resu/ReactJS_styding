@@ -31,7 +31,7 @@ class Todo extends Component {
                         <button
                             type="button"
                             className="btn todo-cancel"
-                            onClick={() => this.props.setEditing(false)}
+                            onClick={() => this.props.setEditing(this.props.id, false)}
                         >
                             Cancel
                             <span className="visually-hidden">renaming {this.props.name}</span>
@@ -63,7 +63,7 @@ class Todo extends Component {
                         <button
                             type="button"
                             className="btn"
-                            onClick={() => this.props.setEditing(true)}
+                            onClick={() => this.props.setEditing(this.props.id, true)}
                         >
                             Edit <span className="visually-hidden">{this.props.name}</span>
                         </button>
