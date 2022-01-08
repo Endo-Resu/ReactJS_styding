@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import Notification from "../Notification/Notification";
 
 const Form = (props) => {
 
     const [name, setName] = useState('');
+    const [notificationActive, setNotificationActive] = useState(false);
+
 
     const handleChange = (e) => {
         setName(e.target.value);
@@ -16,6 +19,8 @@ const Form = (props) => {
 
     return (
         <form onSubmit={handleSubmit}>
+            <Notification
+                active={notificationActive} setActive={setNotificationActive}/>
             <h2 className="label-wrapper">
                 <label htmlFor="new-todo-input" className="label__lg">
                     Got any doings?
@@ -30,7 +35,10 @@ const Form = (props) => {
                 value={name}
                 onChange={handleChange}
             />
-            <button type="submit" className="btn btn__primary btn__lg">
+            <button type="submit"
+                    className="btn btn__primary btn__lg"
+                    onClick={setNotificationActive}
+            >
                 Add
             </button>
         </form>

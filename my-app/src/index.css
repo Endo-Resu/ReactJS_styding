@@ -1,25 +1,29 @@
-
 /* normalizing */
 *,
 *::before,
 *::after {
     box-sizing: border-box;
 }
+
 *:focus {
     outline: none;
     outline-offset: 0;
 }
+
 html {
     font: 62.5% / 1.15 sans-serif;
 }
+
 h1,
 h2 {
     margin-bottom: 0;
 }
+
 ul {
     list-style: none;
     padding: 0;
 }
+
 button {
     border: none;
     margin: 0;
@@ -34,9 +38,11 @@ button {
     -moz-osx-font-smoothing: inherit;
     -webkit-appearance: none;
 }
+
 button::-moz-focus-inner {
     border: 0;
 }
+
 button,
 input,
 optgroup,
@@ -47,21 +53,26 @@ textarea {
     line-height: 1.15;
     margin: 0;
 }
+
 button,
 input {
     overflow: visible;
 }
+
 input[type="text"] {
     border-radius: 8px;
 }
+
 body {
     width: 100%;
     max-width: 68rem;
     margin: 0 auto;
+    height: 100%;
     font: 1.6rem/1.25 Arial, sans-serif;
     background-color: #f0f0f3;
     color: #4d4d4d;
 }
+
 @media screen and (min-width: 620px) {
     body {
         font-size: 1.9rem;
@@ -70,52 +81,86 @@ body {
 }
 
 /* global */
+
 .form-group > input[type="text"] {
     display: inline-block;
     margin-top: 0.4rem;
 }
+
 .btn {
     border-radius: 8px;
     padding: 0.8rem 1rem 0.7rem;
-    border: 0.2rem solid #4d4d4d;
     cursor: pointer;
     text-transform: capitalize;
+    border: 0.2rem solid #4d4d4d;
 }
+
 .btn.toggle-btn {
     border-width: 1px;
     border-color: #d3d3d3;
 }
+
 .btn.toggle-btn[aria-pressed="true"] {
     text-decoration: underline;
+    border-width: 2px;
     border-color: #4d4d4d;
 }
+
 .btn__danger {
     color: #fff;
     background-color: #ca3c3c;
     border-color: #bd2130;
+    transition: 0.3s;
 }
+
+.btn__danger:hover {
+    background-color: #bd2130;
+}
+
 .btn__filter {
     border-color: lightgrey;
 }
+
 .btn__primary {
     color: #fff;
-    background-color: #000;
+    background-color: #01438b;
+    border-color: #020276;
+    transition: 0.3s;
 }
+
+.btn__primary:hover {
+    background-color: #020276;
+}
+
 .btn-group {
     display: flex;
     justify-content: space-between;
 }
+
 .btn-group > * {
     flex: 1 1 49%;
 }
+
 .btn-group > * + * {
     margin-left: 0.8rem;
 }
+
+.todo-edit {
+    background-color: #00a100;
+    border-color: green;
+    transition: 0.3s;
+}
+
+.todo-edit:hover {
+    background-color: green;
+}
+
 .label-wrapper {
     margin: 0;
     flex: 0 0 100%;
     text-align: center;
 }
+
 .visually-hidden {
     position: absolute !important;
     height: 1px;
@@ -125,16 +170,20 @@ body {
     clip: rect(1px, 1px, 1px, 1px);
     white-space: nowrap;
 }
+
 [class*="stack"] > * {
     margin-top: 0;
     margin-bottom: 0;
 }
+
 .stack-small > * + * {
     margin-top: 1.25rem;
 }
+
 .stack-large > * + * {
     margin-top: 2.5rem;
 }
+
 @media screen and (min-width: 550px) {
     .stack-small > * + * {
         margin-top: 1.4rem;
@@ -143,30 +192,36 @@ body {
         margin-top: 2.8rem;
     }
 }
+
 .stack-exception {
     margin-top: 1.2rem;
 }
 /* App */
+
 .todoapp {
     background-color: #f0f0f3;
-    margin: 2rem 0 4rem 0;
+    margin: 14rem 0 4rem 0;
     padding: 1rem;
     position: relative;
     border-radius: 50px;
     box-shadow: 10px 10px 10px #d3d3d6, -10px -10px 21px #fff;
 }
+
 @media screen and (min-width: 550px) {
     .todoapp {
         padding: 4rem;
     }
 }
+
 .todoapp > * {
     margin-left: auto;
     margin-right: auto;
 }
+
 .todoapp > form {
     max-width: 100%;
 }
+
 .todoapp > h1 {
     display: block;
     max-width: 100%;
@@ -174,6 +229,7 @@ body {
     margin: 0;
     margin-bottom: 1rem;
 }
+
 .label__lg {
     line-height: 1.01567;
     font-weight: 300;
@@ -181,52 +237,64 @@ body {
     margin-bottom: 1rem;
     text-align: center;
 }
+
 .input__lg {
     padding: 2rem;
     border: 2px solid #000;
     border-radius: 8px;
 }
+
 .input__lg:focus {
     border-color: #000;
     border-radius: 8px;
 }
+
 [class*="__lg"] {
     display: inline-block;
     width: 100%;
     font-size: 1.9rem;
 }
+
 [class*="__lg"]:not(:last-child) {
     margin-bottom: 1rem;
 }
+
 @media screen and (min-width: 620px) {
     [class*="__lg"] {
         font-size: 2.4rem;
     }
 }
+
 .filters {
     width: 100%;
     margin: unset auto;
 }
+
 /* Items */
+
 .todo {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
+
 .todo > * {
     flex: 0 0 100%;
 }
+
 .todo-text {
     width: 100%;
     min-height: 4.4rem;
     padding: 0.4rem 0.8rem;
     border: 2px solid #565656;
 }
+
 .todo-text:focus {
     box-shadow: inset 0 0 0 2px;
 }
 
-/* CHECKBOX STYLES */
+/* checkbox */
+
 .c-cb {
     box-sizing: border-box;
     font-family: Arial, sans-serif;
@@ -240,6 +308,7 @@ body {
     padding-left: 40px;
     clear: left;
 }
+
 .c-cb > label::before,
 .c-cb > input[type="checkbox"] {
     box-sizing: border-box;
@@ -248,6 +317,7 @@ body {
     width: 44px;
     height: 44px;
 }
+
 .c-cb > input[type="checkbox"] {
     -webkit-font-smoothing: antialiased;
     cursor: pointer;
@@ -257,6 +327,7 @@ body {
     opacity: 0;
     border-radius: 4px;
 }
+
 .c-cb > label {
     font-size: inherit;
     font-family: inherit;
@@ -267,6 +338,7 @@ body {
     cursor: pointer;
     touch-action: manipulation;
 }
+
 .c-cb > label::before {
     content: "";
     position: absolute;
@@ -275,9 +347,11 @@ body {
     background: transparent;
 
 }
+
 .c-cb > input[type="checkbox"]:focus + label::before {
     outline: none;
 }
+
 .c-cb > label::after {
     box-sizing: content-box;
     content: "";
@@ -292,7 +366,49 @@ body {
     border-top-color: transparent;
     opacity: 0;
     background: transparent;
+    transition: 0.3s;
 }
+
 .c-cb > input[type="checkbox"]:checked + label::after {
     opacity: 1;
+    text-decoration: line-through;
+}
+
+/* notification + animation */
+
+.notification-holder {
+    height: 75px;
+    width: 100%;
+    max-width: 68rem;
+    z-index: 100;
+    position: fixed;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f0f0f3;
+    border-radius: 50px;
+    box-shadow: 10px 10px 10px #d3d3d6, -10px -10px 21px #fff;
+    animation: close-notification 1.5s forwards;
+}
+
+.notification-holder.active {
+    animation: show-notification 1s backwards;
+}
+
+@keyframes show-notification {
+    0% {
+        transform: translateX(-50%) translateY(-200px);
+    }
+    100% {
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+@keyframes close-notification {
+    0% {
+        transform: translateX(-50%) translateY(0);
+    }
+    100% {
+        transform: translateX(-50%) translateY(-200px);
+    }
 }
