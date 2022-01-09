@@ -20,8 +20,8 @@ const FILTER_MAP = {
 
 const FILTER_NAMES = Object.keys(FILTER_MAP);
 
-const App = (props) => {
-    const [tasks, setTasks] = useState(props.tasks);
+const App = () => {
+    const [tasks, setTasks] = useState([]);
     const [filter, setFilter] = useState('All')
 
     const toggleTaskCompleted = (id) => {
@@ -68,6 +68,18 @@ const App = (props) => {
         />
         )
     );
+    const validateTask = (name) => {
+        const task = tasks.find(task => task.name === name);
+    
+        if (name.length < 4) {
+            return false
+        }
+        if (task) {
+            return false
+        }
+
+        return true
+    }
 
     const filterList = FILTER_NAMES.map(name => (
         <FilterButton
@@ -78,8 +90,11 @@ const App = (props) => {
         />
     ));
 
-    const tasksNoun = taskList.length !== 1 ? 'tasks' : 'task';
-    const headingText = `${taskList.length} ${tasksNoun} remaining`;
+    const headingText = () => {
+        const tasksNoun = taskList.length !== 1 ? 'tasks' : 'task';
+        const headingText = `${taskList.length} ${tasksNoun} remaining`;
+        return headingText
+    }
 
     const listHeadingRef = useRef(null);
 
@@ -94,11 +109,11 @@ const App = (props) => {
     return (
             <div className="todoapp stack-large">
                 <h1>ToDo App</h1>
-                <Form addTask={addTask} />
+                <Form addTask={addTask} validateTask={validateTask} />
                 <div className="filters btn-group stack-exception">
                     {filterList}
                 </div>
-                <h2 id="list-heading" tabIndex="-1" ref={listHeadingRef}>{headingText}</h2>
+                <h2 id="list-heading" tabIndex="-1" ref={listHeadingRef}>{headingText()}</h2>
                 <ul
                     className="todo-list stack-large stack-exception"
                     aria-labelledby="list-heading"

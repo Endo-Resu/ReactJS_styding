@@ -2,25 +2,44 @@ import React, { useState } from "react";
 import Notification from "../Notification/Notification";
 
 const Form = (props) => {
-
     const [name, setName] = useState('');
+    const [notificationTitle, setNotificationTitle] = useState('')
     const [notificationActive, setNotificationActive] = useState(false);
-
 
     const handleChange = (e) => {
         setName(e.target.value);
     }
 
+    const showNotification = (value) => {
+        setNotificationActive(true)
+        setNotificationTitle(value)
+    }
+    const hideNotification = () => {
+        setNotificationActive(false);
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.addTask(name);
-        setName("");
+        if (props.validateTask(name)) {
+            props.addTask(name);
+            setName("");
+            showNotification('Task added successfully!')
+        } else {
+            showNotification('Allowed only unique tasks with 4+ symbols')
+        }
+      
     }
 
     return (
         <form onSubmit={handleSubmit}>
-            <Notification
+            {   
+            notificationActive
+                ?<Notification
+                hideNotification={hideNotification}
+                title={notificationTitle}
                 active={notificationActive} setActive={setNotificationActive}/>
+                : null
+            }
             <h2 className="label-wrapper">
                 <label htmlFor="new-todo-input" className="label__lg">
                     Got any doings?
@@ -37,7 +56,6 @@ const Form = (props) => {
             />
             <button type="submit"
                     className="btn btn__primary btn__lg"
-                    onClick={setNotificationActive}
             >
                 Add
             </button>

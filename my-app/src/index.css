@@ -389,18 +389,29 @@ body {
     border-radius: 50px;
     box-shadow: 10px 10px 10px #d3d3d6, -10px -10px 21px #fff;
     animation: close-notification 1.5s forwards;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .notification-holder.active {
-    animation: show-notification 1s backwards;
+    font-size: 1.5em;
+    font-weight: inherit;
+    animation: show-notification 4s backwards;
 }
 
 @keyframes show-notification {
     0% {
         transform: translateX(-50%) translateY(-200px);
     }
-    100% {
+    20% {
         transform: translateX(-50%) translateY(0);
+    }
+    80% {
+        transform: translateX(-50%) translateY(0);
+    }
+    100% {
+        transform: translateX(-50%) translateY(-200px);
     }
 }
 

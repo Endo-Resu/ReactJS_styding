@@ -1,4 +1,5 @@
 import React,  { useState, useRef, useEffect }  from "react";
+import Notification from "../Notification/Notification";
 
 const usePrevious = (value) => {
     const ref = useRef();
@@ -11,6 +12,8 @@ const usePrevious = (value) => {
 const Todo = (props) => {
     const [isEditing, setEditing] = useState(false);
     const [newName, setNewName] = useState('');
+    const [notificationTitle, setNotificationTitle] = useState('')
+    const [notificationActive, setNotificationActive] = useState(false);
 
     const editFieldRef = useRef(null);
     const editButtonRef = useRef(null);
@@ -37,8 +40,31 @@ const Todo = (props) => {
         }
     }, [wasEditing, isEditing]);
 
+    const showNotification = (value) => {
+        setNotificationActive(true)
+        setNotificationTitle(value)
+        console.log(this)
+    }
+
+    const hideNotification = () => {
+        setNotificationActive(false);
+    }
+
+    const handleDeleteNotification = () => {
+        showNotification('Task edited successfully!');
+        props.deleteTask(props.id)
+    }
+
     const editingTemplate = (
         <form className="stack-small" onSubmit={handleSubmit}>
+            {
+                notificationActive
+                    ?<Notification
+                        hideNotification={hideNotification}
+                        title={notificationTitle}
+                        active={notificationActive} setActive={setNotificationActive}/>
+                    : null
+            }
             <div className="form-group">
                 <label className="todo-label" htmlFor={props.id}>
                     New name for {props.name}
@@ -61,7 +87,11 @@ const Todo = (props) => {
                     Cancel
                     <span className="visually-hidden">renaming {props.name}</span>
                 </button>
-                <button type="submit" className="btn btn__primary todo-edit">
+                <button
+                    type="submit"
+                    className="btn btn__primary todo-edit"
+                    onClick={() => showNotification('Task edited successfully!')}
+                >
                     Save
                     <span className="visually-hidden">new name for {props.name}</span>
                 </button>
@@ -71,6 +101,14 @@ const Todo = (props) => {
 
     const viewTemplate = (
         <div className="stack-small">
+            {
+                notificationActive
+                    ?<Notification
+                        hideNotification={hideNotification}
+                        title={notificationTitle}
+                        active={notificationActive} setActive={setNotificationActive}/>
+                    : null
+            }
             <div className="c-cb">
                 <input
                     id={props.id}
@@ -94,7 +132,7 @@ const Todo = (props) => {
                 <button
                     type="button"
                     className="btn btn__danger"
-                    onClick={() => props.deleteTask(props.id)}
+                    onClick={handleDeleteNotification}
                 >
                     Delete <span className="visually-hidden">{props.name}</span>
                 </button>
