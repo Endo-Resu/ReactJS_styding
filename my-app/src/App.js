@@ -30,7 +30,6 @@ class App extends Component {
     }
 
     setEditing(taskId, value) {
-        console.log(taskId)
         const newTasks = this.state.tasks.map(task => {
             if (task.id === taskId) {
                 task.isEditing = value;
