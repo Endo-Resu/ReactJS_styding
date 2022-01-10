@@ -50,21 +50,8 @@ const Todo = (props) => {
         setNotificationActive(false);
     }
 
-    const handleDeleteNotification = () => {
-        showNotification('Task edited successfully!');
-        props.deleteTask(props.id)
-    }
-
     const editingTemplate = (
         <form className="stack-small" onSubmit={handleSubmit}>
-            {
-                notificationActive
-                    ?<Notification
-                        hideNotification={hideNotification}
-                        title={notificationTitle}
-                        active={notificationActive} setActive={setNotificationActive}/>
-                    : null
-            }
             <div className="form-group">
                 <label className="todo-label" htmlFor={props.id}>
                     New name for {props.name}
@@ -101,14 +88,6 @@ const Todo = (props) => {
 
     const viewTemplate = (
         <div className="stack-small">
-            {
-                notificationActive
-                    ?<Notification
-                        hideNotification={hideNotification}
-                        title={notificationTitle}
-                        active={notificationActive} setActive={setNotificationActive}/>
-                    : null
-            }
             <div className="c-cb">
                 <input
                     id={props.id}
@@ -132,7 +111,7 @@ const Todo = (props) => {
                 <button
                     type="button"
                     className="btn btn__danger"
-                    onClick={handleDeleteNotification}
+                    onClick={() => props.deleteTask(props.id)}
                 >
                     Delete <span className="visually-hidden">{props.name}</span>
                 </button>
@@ -141,7 +120,17 @@ const Todo = (props) => {
     );
 
     return (
-        <li className="todo">{isEditing ? editingTemplate : viewTemplate}</li>
+        <>
+            {
+                notificationActive
+                    ?<Notification
+                        hideNotification={hideNotification}
+                        title={notificationTitle}
+                        active={notificationActive} setActive={setNotificationActive}/>
+                    : null
+            }
+            <li className="todo">{isEditing ? editingTemplate : viewTemplate}</li>
+        </>
     );
 }
 
