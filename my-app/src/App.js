@@ -3,9 +3,7 @@ import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
 import Todo from "./components/Todo"
 import { nanoid } from "nanoid";
-
-
-const FILTER_NAMES = ['All', 'Active', 'Completed'];
+import FILTER_NAMES from "./utils/constants/Constants"
 
 class App extends Component {
     constructor(props) {
@@ -14,15 +12,19 @@ class App extends Component {
             tasks: [],
             filterType: 'All',
         };
+        this.setEditing = this.setEditing.bind(this)
+        this.toggleTaskCompleted = this.toggleTaskCompleted.bind(this)
+        this.deleteTask = this.deleteTask.bind(this)
+        this.editTask = this.editTask.bind(this)
     }
 
     addTask(name) {
         const newTask = { id: "todo-" + nanoid(), name: name, completed: false, isEditing: false };
-        this.state.tasks.push(newTask);
         this.setState({
-            tasks: this.state.tasks
+            tasks: [...this.state.tasks, newTask]
         });
     }
+
     setFilter(filterName) { 
         this.setState({
             filterType: filterName,
@@ -62,7 +64,6 @@ class App extends Component {
     }
 
     editTask(id, newName) {
-        console.log(id, newName)
         const editedTaskList = this.state.tasks.map(task => {
             if (id === task.id) {
                 task.name = newName;
@@ -88,8 +89,8 @@ class App extends Component {
     }
 
     render() {
-        this.tasksNoun = this.state.tasks.length !== 1 ? 'tasks' : 'task';
-        this.headingText = `${this.state.tasks.length} ${this.tasksNoun} remaining`;
+        const tasksNoun = this.state.tasks.length !== 1 ? 'tasks' : 'task';
+        const headingText = `${this.state.tasks.length} ${tasksNoun} remaining`;
         return (
             <div className="todoapp stack-large">
                 <h1>ToDo App</h1>
@@ -104,7 +105,7 @@ class App extends Component {
                     ))}
                 </div>
                 <h2 id="list-heading">
-                    {this.headingText}
+                    {headingText}
                 </h2>
                 <ul
                     className="todo-list stack-large stack-exception"
@@ -117,11 +118,11 @@ class App extends Component {
                                     name={task.name}
                                     completed={task.completed}
                                     key={task.id}
-                                    setEditing={this.setEditing.bind(this)}
                                     isEditing={task.isEditing}
-                                    toggleTaskCompleted={this.toggleTaskCompleted.bind(this)}
-                                    deleteTask={this.deleteTask.bind(this)}
-                                    editTask={this.editTask.bind(this)}
+                                    setEditing={this.setEditing}
+                                    toggleTaskCompleted={this.toggleTaskCompleted}
+                                    deleteTask={this.deleteTask}
+                                    editTask={this.editTask}
                                 />
                             )
                     })}

@@ -25,7 +25,12 @@ class Todo extends Component {
                         <label className="todo-label" htmlFor={this.props.id}>
                             New name for {this.props.name}
                         </label>
-                        <input onInput={(event) => this.newNameHandler.call(this, event)} value={this.state.newName} id={this.props.id} className="todo-text" type="text" />
+                        <input
+                            onInput={(event) => this.newNameHandler.call(this, event)}
+                            value={this.state.newName}
+                            id={this.props.id}
+                            className="todo-text"
+                            type="text" />
                     </div>
                     <div className="btn-group">
                         <button
