@@ -43,7 +43,6 @@ const Todo = (props) => {
     const showNotification = (value) => {
         setNotificationActive(true)
         setNotificationTitle(value)
-        console.log(this)
     }
 
     const hideNotification = () => {
