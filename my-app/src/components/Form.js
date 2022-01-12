@@ -4,16 +4,21 @@ class Form extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: ''
+            name: ""
         };
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        this.props.addTask(this.state.name);
-        this.setState({
-            name: ""
-        });
+        if (this.props.validateTask(this.state.name)) {
+            this.props.addTask(this.state.name);
+            this.setState({
+                name: ""
+            });
+        } else {
+            alert('Allowed only unique tasks with 4+ symbols')
+        }
+
     }
 
     handleChange = (e) => {

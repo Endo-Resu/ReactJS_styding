@@ -88,13 +88,25 @@ class App extends Component {
         })
     }
 
+    validateTask = (name) => {
+        const task = this.state.tasks.find(task => task.name === name);
+        if (name.length < 4) {
+            return false
+        }
+        if (task) {
+            return false
+        }
+        return true
+    }
+
+
     render() {
         const tasksNoun = this.state.tasks.length !== 1 ? 'tasks' : 'task';
         const headingText = `${this.state.tasks.length} ${tasksNoun} remaining`;
         return (
             <div className="todoapp stack-large">
                 <h1>ToDo App</h1>
-                <Form addTask={this.addTask.bind(this)}/>
+                <Form addTask={this.addTask.bind(this)} validateTask={this.validateTask.bind(this)}/>
                 <div className="filters btn-group stack-exception">
                     {FILTER_NAMES.map(name => (
                         <FilterButton

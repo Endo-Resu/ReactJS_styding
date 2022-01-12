@@ -1,9 +1,21 @@
 import React, { Component } from "react";
 
 class EditingTemplate extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            id: this.props.id,
+            newName: "",
+        }
+    }
+
+    newNameHandler(e) {
+        this.setState({
+            newName: e.target.value
+        })
+    }
 
     render() {
-
         return (
             <>
                 <form className="stack-small" onSubmit={(e) => e.preventDefault()}>
