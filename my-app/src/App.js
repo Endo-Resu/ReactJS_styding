@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
 import Todo from "./components/Todo"
-import { nanoid } from "nanoid";
+import {nanoid} from "nanoid";
 import FILTER_NAMES from "./utils/constants/Constants"
 
 class App extends Component {
@@ -19,13 +19,13 @@ class App extends Component {
     }
 
     addTask(name) {
-        const newTask = { id: "todo-" + nanoid(), name: name, completed: false, isEditing: false };
-        this.setState({
-            tasks: [...this.state.tasks, newTask]
-        });
+        const newTask = {id: "todo-" + nanoid(), name: name, completed: false, isEditing: false};
+        this.setState((prevState) => ({
+            tasks: [...prevState.tasks, newTask]
+        }));
     }
 
-    setFilter(filterName) { 
+    setFilter(filterName) {
         this.setState({
             filterType: filterName,
         })
@@ -75,9 +75,9 @@ class App extends Component {
             tasks: editedTaskList,
         });
     }
+
     tasksWasFilter() {
         return this.state.tasks.filter(task => {
-                          
             if (this.state.filterType === 'Completed' && task.completed) {
                 return task
             } else if (this.state.filterType === "Active" && !task.completed) {
@@ -112,19 +112,19 @@ class App extends Component {
                     aria-labelledby="list-heading"
                 >
                     {this.tasksWasFilter().map(task => {
-                            return (
-                                <Todo
-                                    id={task.id}
-                                    name={task.name}
-                                    completed={task.completed}
-                                    key={task.id}
-                                    isEditing={task.isEditing}
-                                    setEditing={this.setEditing}
-                                    toggleTaskCompleted={this.toggleTaskCompleted}
-                                    deleteTask={this.deleteTask}
-                                    editTask={this.editTask}
-                                />
-                            )
+                        return (
+                            <Todo
+                                id={task.id}
+                                name={task.name}
+                                completed={task.completed}
+                                key={task.id}
+                                isEditing={task.isEditing}
+                                setEditing={this.setEditing}
+                                toggleTaskCompleted={this.toggleTaskCompleted}
+                                deleteTask={this.deleteTask}
+                                editTask={this.editTask}
+                            />
+                        )
                     })}
                 </ul>
             </div>
