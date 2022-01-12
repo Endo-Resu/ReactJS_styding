@@ -3,6 +3,7 @@ import React, { Component } from "react";
 class EditingTemplate extends Component {
 
     render() {
+
         return (
             <>
                 <form className="stack-small" onSubmit={(e) => e.preventDefault()}>
