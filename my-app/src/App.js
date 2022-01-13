@@ -104,41 +104,43 @@ class App extends Component {
         const tasksNoun = this.state.tasks.length !== 1 ? 'tasks' : 'task';
         const headingText = `${this.state.tasks.length} ${tasksNoun} remaining`;
         return (
-            <div className="todoapp stack-large">
-                <h1>ToDo App</h1>
-                <Form addTask={this.addTask.bind(this)} validateTask={this.validateTask.bind(this)}/>
-                <div className="filters btn-group stack-exception">
-                    {FILTER_NAMES.map(name => (
-                        <FilterButton
-                            key={name}
-                            name={name}
-                            setFilter={this.setFilter.bind(this)}
-                        />
-                    ))}
-                </div>
-                <h2 id="list-heading">
-                    {headingText}
-                </h2>
-                <ul
-                    className="todo-list stack-large stack-exception"
-                    aria-labelledby="list-heading"
-                >
-                    {this.tasksWasFilter().map(task => {
-                        return (
-                            <Todo
-                                id={task.id}
-                                name={task.name}
-                                completed={task.completed}
-                                key={task.id}
-                                isEditing={task.isEditing}
-                                setEditing={this.setEditing}
-                                toggleTaskCompleted={this.toggleTaskCompleted}
-                                deleteTask={this.deleteTask}
-                                editTask={this.editTask}
+            <div className="background__wrapper">
+                <div className="todoapp stack-large">
+                    <h1>ToDo App</h1>
+                    <Form addTask={this.addTask.bind(this)} validateTask={this.validateTask.bind(this)}/>
+                    <div className="filters btn-group stack-exception">
+                        {FILTER_NAMES.map(name => (
+                            <FilterButton
+                                key={name}
+                                name={name}
+                                setFilter={this.setFilter.bind(this)}
                             />
-                        )
-                    })}
-                </ul>
+                        ))}
+                    </div>
+                    <h2 id="list-heading">
+                        {headingText}
+                    </h2>
+                    <ul
+                        className="todo-list stack-large stack-exception"
+                        aria-labelledby="list-heading"
+                    >
+                        {this.tasksWasFilter().map(task => {
+                            return (
+                                <Todo
+                                    id={task.id}
+                                    name={task.name}
+                                    completed={task.completed}
+                                    key={task.id}
+                                    isEditing={task.isEditing}
+                                    setEditing={this.setEditing}
+                                    toggleTaskCompleted={this.toggleTaskCompleted}
+                                    deleteTask={this.deleteTask}
+                                    editTask={this.editTask}
+                                />
+                            )
+                        })}
+                    </ul>
+                </div>
             </div>
         )
     }
