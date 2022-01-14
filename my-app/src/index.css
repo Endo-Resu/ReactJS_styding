@@ -97,8 +97,8 @@ body {
 }
 
 .background__wrapper.dark {
-    background-color: #;
-    color: #;
+    background-color: #4d4d4d;
+    color: #f0f0f3;
 }
 
 .form-group > input[type="text"] {
@@ -115,7 +115,7 @@ body {
 }
 
 .btn.dark {
-    border: 0.2rem solid # ;
+    border: 0.2rem solid #d3d3d3;
 }
 
 .btn.toggle-btn {
@@ -235,8 +235,8 @@ body {
 }
 
 .todoapp.dark {
-    background-color: ;
-    box-shadow: 10px 10px 10px #, -10px -10px 21px #;;
+    background-color: #4d4d4d;
+    box-shadow: 10px 10px 10px #5f5f5f, -10px -10px 21px #3b3b3b;
 }
 
 @media screen and (min-width: 550px) {

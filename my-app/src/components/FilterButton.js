@@ -16,4 +16,5 @@ class FilterButton extends Component {
         );
     }
 }
+
 export default FilterButton;

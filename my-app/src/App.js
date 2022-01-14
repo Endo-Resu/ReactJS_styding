@@ -4,6 +4,8 @@ import FilterButton from "./components/FilterButton";
 import Todo from "./components/Todo"
 import {nanoid} from "nanoid";
 import FILTER_NAMES from "./utils/constants/Constants"
+import ThemeButton from "./components/ThemeButton";
+import {ThemeContextConsumer} from "./components/ThemeContext";
 
 class App extends Component {
     constructor(props) {
@@ -104,44 +106,49 @@ class App extends Component {
         const tasksNoun = this.state.tasks.length !== 1 ? 'tasks' : 'task';
         const headingText = `${this.state.tasks.length} ${tasksNoun} remaining`;
         return (
-            <div className="background__wrapper">
-                <div className="todoapp stack-large">
-                    <h1>ToDo App</h1>
-                    <Form addTask={this.addTask.bind(this)} validateTask={this.validateTask.bind(this)}/>
-                    <div className="filters btn-group stack-exception">
-                        {FILTER_NAMES.map(name => (
-                            <FilterButton
-                                key={name}
-                                name={name}
-                                setFilter={this.setFilter.bind(this)}
-                            />
-                        ))}
+            <ThemeContextConsumer>
+                {context => (
+                    <div className={`background__wrapper ${context.theme}`}>
+                        <div className={`todoapp stack-large ${context.theme}`}>
+                            <ThemeButton/>
+                            <h1>ToDo App</h1>
+                            <Form addTask={this.addTask.bind(this)} validateTask={this.validateTask.bind(this)}/>
+                            <div className="filters btn-group stack-exception">
+                                {FILTER_NAMES.map(name => (
+                                    <FilterButton
+                                        key={name}
+                                        name={name}
+                                        setFilter={this.setFilter.bind(this)}
+                                    />
+                                ))}
+                            </div>
+                            <h2 id="list-heading">
+                                {headingText}
+                            </h2>
+                            <ul
+                                className="todo-list stack-large stack-exception"
+                                aria-labelledby="list-heading"
+                            >
+                                {this.tasksWasFilter().map(task => {
+                                    return (
+                                        <Todo
+                                            id={task.id}
+                                            name={task.name}
+                                            completed={task.completed}
+                                            key={task.id}
+                                            isEditing={task.isEditing}
+                                            setEditing={this.setEditing}
+                                            toggleTaskCompleted={this.toggleTaskCompleted}
+                                            deleteTask={this.deleteTask}
+                                            editTask={this.editTask}
+                                        />
+                                    )
+                                })}
+                            </ul>
+                        </div>
                     </div>
-                    <h2 id="list-heading">
-                        {headingText}
-                    </h2>
-                    <ul
-                        className="todo-list stack-large stack-exception"
-                        aria-labelledby="list-heading"
-                    >
-                        {this.tasksWasFilter().map(task => {
-                            return (
-                                <Todo
-                                    id={task.id}
-                                    name={task.name}
-                                    completed={task.completed}
-                                    key={task.id}
-                                    isEditing={task.isEditing}
-                                    setEditing={this.setEditing}
-                                    toggleTaskCompleted={this.toggleTaskCompleted}
-                                    deleteTask={this.deleteTask}
-                                    editTask={this.editTask}
-                                />
-                            )
-                        })}
-                    </ul>
-                </div>
-            </div>
+                )}
+            </ThemeContextConsumer>
         )
     }
 }
