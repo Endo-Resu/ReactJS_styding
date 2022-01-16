@@ -11,13 +11,7 @@ class Todo extends Component {
             newName: "",
         }
     }
-
-    newNameHandler(e) {
-        this.setState({
-            newName: e.target.value
-        })
-    }
-
+    
     render() {
         return (
         <li className="todo"> {
