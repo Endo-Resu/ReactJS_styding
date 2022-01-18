@@ -5,13 +5,21 @@ class Loader extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading: true,
-            completed: true,
+            loading: false,
+            completed: false,
         }
     }
 
+    componentDidMount() {
+        setTimeout(() => {
+            this.setState({
+                loading: true,
+                completed: true
+            })
+        }, 100000000)
+    }
+
     render() {
-        console.log(this)
         return (
             <>
                 {!this.state.completed ? (

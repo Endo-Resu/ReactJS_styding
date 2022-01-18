@@ -3,7 +3,7 @@ import React from 'react';
 const LoadingHOC = (WrappedComponent) => {
 
     const colours = [ 'grey', 'black'];
-    const randomColour = colours[Math.floor(Math.random() * 5)];
+    const randomColour = colours[Math.floor(Math.random() * 2)];
     const className = randomColour + ' text';
 
     return (props) => {
