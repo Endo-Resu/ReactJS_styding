@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {ThemeContextConsumer} from "../../components/ThemeContext";
+import PropTypes from "prop-types";
 
 class ViewTemplate extends Component {
     constructor(props) {
@@ -50,6 +51,15 @@ class ViewTemplate extends Component {
             </>
         )
     }
+}
+
+ViewTemplate.propTypes = {
+    id: PropTypes.string,
+    name: PropTypes.string,
+    setEditing: PropTypes.func,
+    completed: PropTypes.bool,
+    toggleTaskCompleted: PropTypes.func,
+    deleteTask: PropTypes.func,
 }
 
 export default ViewTemplate

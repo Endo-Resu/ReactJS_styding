@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {ThemeContextConsumer} from "../../components/ThemeContext";
+import PropTypes from "prop-types";
 
 class EditingTemplate extends Component {
     constructor(props) {
@@ -54,6 +55,13 @@ class EditingTemplate extends Component {
             </>
         )
     }
+}
+
+EditingTemplate.propTypes = {
+    id: PropTypes.string,
+    name: PropTypes.string,
+    editTask: PropTypes.func,
+    setEditing: PropTypes.func,
 }
 
 export default EditingTemplate

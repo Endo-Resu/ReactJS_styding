@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import EditingTemplate from "./templates/EditingTemplate";
 import ViewTemplate from "./templates/ViewTemplate";
+import PropTypes from "prop-types";
 
 class Todo extends Component {
     constructor(props) {
@@ -38,4 +39,15 @@ class Todo extends Component {
     );
     }
 }
+
+Todo.propTypes = {
+    id: PropTypes.string,
+    name: PropTypes.string,
+    editTask: PropTypes.func,
+    completed: PropTypes.bool,
+    setEditing: PropTypes.func,
+    toggleTaskCompleted: PropTypes.func,
+    deleteTask: PropTypes.func,
+}
+
 export default Todo;

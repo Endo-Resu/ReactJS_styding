@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types'
 
 class Form extends Component {
     constructor(props) {
@@ -50,6 +51,11 @@ class Form extends Component {
             </form>
         );
     }
+}
+
+Form.propTypes ={
+    validateTask: PropTypes.func,
+    addTask: PropTypes.func,
 }
 
 export default Form;
