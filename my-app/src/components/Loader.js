@@ -16,7 +16,7 @@ class Loader extends Component {
                 loading: true,
                 completed: true
             })
-        }, 100000000)
+        }, 1000)
     }
 
     render() {
