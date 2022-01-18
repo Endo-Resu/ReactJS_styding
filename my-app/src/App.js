@@ -3,6 +3,7 @@ import Form from "./components/Form/Form";
 import FilterButton from "./components/FilterButtons/FilterButton";
 import Todo from "./components/Todo/Todo"
 import { nanoid } from "nanoid";
+import { FILTER_NAMES, FILTER_MAP } from "./components/Constants/Constants";
 
 const usePrevious = (value) => {
     const ref = useRef();
@@ -12,13 +13,6 @@ const usePrevious = (value) => {
     return ref.current;
 }
 
-const FILTER_MAP = {
-    All: () => true,
-    Active: task => !task.completed,
-    Completed: task => task.completed
-};
-
-const FILTER_NAMES = Object.keys(FILTER_MAP);
 
 const App = () => {
     const [tasks, setTasks] = useState([]);
@@ -68,6 +62,7 @@ const App = () => {
         />
         )
     );
+
     const validateTask = (name) => {
         const task = tasks.find(task => task.name === name);
     
