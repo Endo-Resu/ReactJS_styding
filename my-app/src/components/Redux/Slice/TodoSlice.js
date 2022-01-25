@@ -1,16 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const TodoSlice = createSlice({
-    name: "todo",
-    initialState: null,
+export const todoSlice = createSlice({
+    name: 'todo',
+    initialState: {
+        newName: ''
+    },
     reducers: {
-        setNewName(state, action) {
-            state.value = action
+        setNewName: (state, action) => {
+            state.value = action.payload
         }
      }
 });
 
-// Action creators are generated for each case reducer function
-export const { setNewName } = TodoSlice.actions;
+export const { setNewName } = todoSlice.actions;
 
-export default TodoSlice.reducer;
+export default todoSlice.reducer;

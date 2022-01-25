@@ -12,8 +12,8 @@ const usePrevious = (value) => {
 }
 
 const Todo = (props) => {
+    const { newName } = useSelector((state) => state.todo.newName);
     const dispatch = useDispatch()
-    const newName = useSelector(state => state.setNewName.value)
 
     const [isEditing, setEditing] = useState(false);
     const [notificationTitle, setNotificationTitle] = useState('')
@@ -23,14 +23,13 @@ const Todo = (props) => {
     const editButtonRef = useRef(null);
 
     const handleChange = (e) => {
-        dispatch(setNewName(e.target.value));
-        newName = e.target.value
+        setNewName(e.target.value);
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         props.editTask(props.id, newName);
-        dispatch(setNewName(''));
+        dispatch(setNewName(""));
         setEditing(false);
     }
 
