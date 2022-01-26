@@ -1,6 +1,6 @@
 import React,  { useState, useRef, useEffect }  from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setNewName } from "../Redux/Slice/TodoSlice"
+import {selectCount, setNewName} from "../Redux/Slice/TodoSlice"
 import Notification from "../Notification/Notification";
 
 const usePrevious = (value) => {
@@ -12,9 +12,8 @@ const usePrevious = (value) => {
 }
 
 const Todo = (props) => {
-    const { newName } = useSelector((state) => state.todo.newName);
     const dispatch = useDispatch()
-
+    const newName = useSelector(selectCount);
     const [isEditing, setEditing] = useState(false);
     const [notificationTitle, setNotificationTitle] = useState('')
     const [notificationActive, setNotificationActive] = useState(false);
@@ -23,14 +22,15 @@ const Todo = (props) => {
     const editButtonRef = useRef(null);
 
     const handleChange = (e) => {
-        setNewName(e.target.value);
+        dispatch(setNewName(e.target.value));
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         props.editTask(props.id, newName);
-        dispatch(setNewName(""));
+        dispatch(setNewName(String(newName)));
         setEditing(false);
+        console.log(this)
     }
 
     const wasEditing = usePrevious(isEditing);

@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const todoSlice = createSlice({
     name: 'todo',
     initialState: {
-        newName: ''
+        value: ''
     },
     reducers: {
         setNewName: (state, action) => {
@@ -13,5 +13,6 @@ export const todoSlice = createSlice({
 });
 
 export const { setNewName } = todoSlice.actions;
+export const selectCount = state => state.todo.value;
 
 export default todoSlice.reducer;
