@@ -1,6 +1,16 @@
-import React,  { useState, useRef, useEffect }  from "react";
+import React,  { useRef, useEffect }  from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {selectCount, setNewName} from "../Redux/Slice/TodoSlice"
+import {
+    selectName,
+    setNewName,
+    selectEditing,
+    setEditing,
+    selectNotification,
+    setNotificationActive,
+    selectNotificationTitle,
+    setNotificationTitle,
+}
+from "../Redux/Slice/TodoSlice"
 import Notification from "../Notification/Notification";
 
 const usePrevious = (value) => {
@@ -12,11 +22,11 @@ const usePrevious = (value) => {
 }
 
 const Todo = (props) => {
-    const dispatch = useDispatch()
-    const newName = useSelector(selectCount);
-    const [isEditing, setEditing] = useState(false);
-    const [notificationTitle, setNotificationTitle] = useState('')
-    const [notificationActive, setNotificationActive] = useState(false);
+    const dispatch = useDispatch();
+    const newName = useSelector(selectName);
+    const isEditing = useSelector(selectEditing);
+    const notificationActive = useSelector(selectNotification);
+    const notificationTitle = useSelector(selectNotificationTitle)
 
     const editFieldRef = useRef(null);
     const editButtonRef = useRef(null);
@@ -29,8 +39,7 @@ const Todo = (props) => {
         e.preventDefault();
         props.editTask(props.id, newName);
         dispatch(setNewName(String(newName)));
-        setEditing(false);
-        console.log(this)
+        dispatch(setEditing(false));
     }
 
     const wasEditing = usePrevious(isEditing);
@@ -45,12 +54,12 @@ const Todo = (props) => {
     }, [wasEditing, isEditing]);
 
     const showNotification = (value) => {
-        setNotificationActive(true)
-        setNotificationTitle(value)
+        dispatch(setNotificationActive(true))
+        dispatch(setNotificationTitle(value))
     }
 
     const hideNotification = () => {
-        setNotificationActive(false);
+        dispatch(setNotificationActive(false));
     }
 
     const editingTemplate = (
@@ -72,7 +81,7 @@ const Todo = (props) => {
                 <button
                     type="button"
                     className="btn todo-cancel"
-                    onClick={() => setEditing(false)}
+                    onClick={() => dispatch(setEditing(false))}
                 >
                     Cancel
                     <span className="visually-hidden">renaming {props.name}</span>
@@ -106,7 +115,7 @@ const Todo = (props) => {
                 <button
                     type="button"
                     className="btn"
-                    onClick={() => setEditing(true)}
+                    onClick={() => dispatch(setEditing(true))}
                     ref={editButtonRef}
                 >
                     Edit <span className="visually-hidden">{props.name}</span>
