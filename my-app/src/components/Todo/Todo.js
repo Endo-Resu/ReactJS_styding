@@ -1,5 +1,8 @@
 import React,  { useState, useRef, useEffect }  from "react";
 import Notification from "../Notification/Notification";
+import { useLocalStore, useObserver } from 'mobx-react-lite';
+import NewNameStore from "../MobX/Store/Store";
+import { observer } from "mobx-react"
 
 const usePrevious = (value) => {
     const ref = useRef();
@@ -9,9 +12,10 @@ const usePrevious = (value) => {
     return ref.current;
 }
 
-const Todo = (props) => {
+const Todo = observer(props => {
+    const { newName, setNewName } = NewNameStore;
+
     const [isEditing, setEditing] = useState(false);
-    const [newName, setNewName] = useState('');
     const [notificationTitle, setNotificationTitle] = useState('')
     const [notificationActive, setNotificationActive] = useState(false);
 
@@ -131,6 +135,6 @@ const Todo = (props) => {
             <li className="todo">{isEditing ? editingTemplate : viewTemplate}</li>
         </>
     );
-}
+})
 
 export default Todo
