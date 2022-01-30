@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Form from "./components/Form/Form";
 import FilterButton from "./components/FilterButtons/FilterButton";
-import Todo from "./components/Todo/Todo"
+import Todo from "./components/Todo/Todo.tsx"
 import { nanoid } from "nanoid";
 import { FILTER_NAMES, FILTER_MAP } from "./components/Constants/Constants";
 
