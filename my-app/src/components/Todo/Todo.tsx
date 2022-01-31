@@ -22,17 +22,24 @@ const usePrevious = (value) => {
     return ref.current;
 }
 
+interface IProps {
+    name: string;
+    id: string;
+    completed: boolean;
+    toggleTaskCompleted: any;
+    deleteTask: any;
+    editTask: boolean;
+}
 
-
-const Todo = (props) => {
+const Todo: React.FC<IProps> = (props) => {
     const dispatch = useDispatch();
-    const newName = useSelector(selectName);
-    const isEditing = useSelector(selectEditing);
-    const notificationActive = useSelector(selectNotification);
-    const notificationTitle = useSelector(selectNotificationTitle)
+    const newName = useSelector<string>(selectName);
+    const isEditing = useSelector<boolean>(selectEditing);
+    const notificationActive = useSelector<string>(selectNotification);
+    const notificationTitle = useSelector<string>(selectNotificationTitle)
 
-    const editFieldRef = useRef(null);
-    const editButtonRef = useRef(null);
+    const editFieldRef = useRef<boolean>(null);
+    const editButtonRef = useRef<boolean>(null);
 
     const handleChange = (e) => {
         dispatch(setNewName(e.target.value));
